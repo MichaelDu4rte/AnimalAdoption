@@ -30,4 +30,15 @@ public class AnimalController {
     private Animal create(@RequestBody Animal animal) {
         return repository.save(animal);
     }
+
+    @GetMapping("/not-adoption")
+    private List<Animal> findNotAdoption() {
+        return repository.findNotAdoption();
+    }
+
+    @GetMapping("/adoption")
+    private List<Animal> findAdoption() {
+        return repository.findAdoption();
+    }
+
 }
