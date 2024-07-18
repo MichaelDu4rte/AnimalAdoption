@@ -17,6 +17,9 @@ public class Animal {
     private Integer id;
 
     @Column(nullable = false)
+    private String animalType;
+
+    @Column(nullable = false)
     private String nameEstimated;
 
     @Column(nullable = false)
@@ -54,6 +57,14 @@ public class Animal {
 
     public void setNameEstimated(String nameEstimated) {
         this.nameEstimated = nameEstimated;
+    }
+
+    public String getAnimalType() {
+        return animalType;
+    }
+
+    public void setAnimalType(String animalType) {
+        this.animalType = animalType;
     }
 
     public Integer getAgeEstimated() {

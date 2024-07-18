@@ -1,12 +1,12 @@
 package br.com.michael.animalservice.controllers;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.michael.animalservice.entity.Animal;
 import br.com.michael.animalservice.repository.AnimalRepository;
@@ -26,8 +26,22 @@ public class AnimalController {
         return repository.findAll();
     }
 
+    @GetMapping("/type")
+    private List<Animal> findByType(@RequestParam String type) {
+        if (!type.equalsIgnoreCase("dog") && !type.equalsIgnoreCase("cat")) {
+            throw new IllegalArgumentException("Type must be either 'dog' or 'cat'");
+        }
+
+        return repository.findByAnimalType(type);
+    }
+
     @PostMapping()
     private Animal create(@RequestBody Animal animal) {
+
+        if (animal.getAnimalType() == null || (!animal.getAnimalType().equalsIgnoreCase("dog") && !animal.getAnimalType().equalsIgnoreCase("cat"))) {
+            throw new IllegalArgumentException("Animal type must be either 'dog' or 'cat'");
+        }
+
         return repository.save(animal);
     }
 
@@ -39,6 +53,23 @@ public class AnimalController {
     @GetMapping("/adoption")
     private List<Animal> findAdoption() {
         return repository.findAdoption();
+    }
+
+    @GetMapping("/rescued-count")
+    private Map<String, Long> countAnimalsByRecipientBetweenDates(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+
+        List<Object[]> results = repository.countAnimalsByRecipientBetweenDates(startDate, endDate);
+        Map<String, Long> countByRecipient = new HashMap<>();
+
+        for (Object[] result : results) {
+            String nameRecipient = (String) result[0];
+            Long count = (Long) result[1];
+            countByRecipient.put(nameRecipient, count);
+        }
+
+        return countByRecipient;
     }
 
 }

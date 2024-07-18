@@ -6,7 +6,8 @@ INSERT INTO
         DATE_ENTRY,
         CONDITIONS_ARRIVAL,
         NAME_RECIPIENT,
-        SHAPE_PHYSICAL
+        SHAPE_PHYSICAL,
+        ANIMAL_TYPE
     )
 VALUES (
         'BlackDog',
@@ -15,7 +16,8 @@ VALUES (
         CURRENT_DATE,
         'Bem machuado',
         'Joao',
-        'Pequeno'
+        'Pequeno',
+        'dog'
     );
 
 INSERT INTO
@@ -27,7 +29,8 @@ INSERT INTO
         DATE_ADOPTION,
         CONDITIONS_ARRIVAL,
         NAME_RECIPIENT,
-        SHAPE_PHYSICAL
+        SHAPE_PHYSICAL,
+        ANIMAL_TYPE
     )
 VALUES (
         'WhiteDog',
@@ -37,5 +40,6 @@ VALUES (
         CURRENT_DATE,
         'Bem sujo',
         'Joao',
-        'Pequeno'
+        'Pequeno',
+        'cat'
     );
